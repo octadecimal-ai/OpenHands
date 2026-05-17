@@ -1,0 +1,64 @@
+# MCP Servers Configuration
+# Lokalizacja: _bmad/mcp/servers.yaml
+# Dokumentacja: https://modelcontextprotocol.io/
+
+mcp_servers:
+  # Serwer filesystem - dostęp do plików projektu z ograniczeniami
+  filesystem_project:
+    command: node
+    args:
+      - /opt/homebrew/lib/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js
+      - /Users/admin/Developer/multi-agent-systems/develop/openhands-bmad-agt
+    description: "Dostęp do plików projektu OpenHands-BMAD"
+    enabled: true
+    scope: project_only  # Tylko katalog projektu
+
+  # Serwer Apple Events - integracja z macOS
+  apple_events:
+    command: npx
+    args:
+      - -y
+      - "@wroussel/mcp-server-apple-events"
+    description: "Integracja Apple Events (Reminders, Notes, Calendar)"
+    enabled: false  # Wymaga TCC permissions
+    notes: "Wymaga nadania uprawnień w System Preferences > Privacy > Automation"
+
+  # Serwer z notatek Apple Notes (gdy będzie dostępny)
+  apple_notes:
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-apple-notes"
+    description: "Dostęp do Apple Notes"
+    enabled: false
+    notes: "Beta - sprawdzić dostępność"
+
+# Globalne ustawienia bezpieczeństwa MCP
+security:
+  # Wymagaj potwierdzenia dla operacji zapisu
+  require_write_confirmation: true
+  
+  # Dozwolone rozszerzenia plików (pusta lista = wszystkie)
+  allowed_extensions:
+    - .md
+    - .txt
+    - .json
+    - .yaml
+    - .yml
+    - .toml
+    - .py
+    - .js
+    - .ts
+  
+  # Zablokowane ścieżki (nigdy nie udostępniaj)
+  blocked_paths:
+    - ~/.ssh
+    - ~/.aws
+    - ~/.config
+    - /etc
+    - ~/.pki
+
+# Logowanie MCP
+logging:
+  level: info  # debug, info, warn, error
+  log_file: _bmad/mcp/mcp.log
