@@ -1,0 +1,37 @@
+{
+  "mcp_servers": {
+    "filesystem_project": {
+      "command": "node",
+      "args": [
+        "/opt/homebrew/lib/node_modules/@modelcontextprotocol/server-filesystem/dist/index.js",
+        "/Users/admin/Developer/multi-agent-systems/develop/openhands-bmad-agt"
+      ],
+      "description": "Dostęp do plików projektu OpenHands-BMAD",
+      "enabled": true,
+      "scope": "project_only"
+    },
+    "apple_events": {
+      "command": "mcp-server-apple-events",
+      "args": [],
+      "description": "Integracja Apple Reminders i Calendar (macOS)",
+      "enabled": true,
+      "notes": "Wymaga TCC permissions w System Preferences > Privacy > Automation"
+    },
+    "apple_notes": {
+      "command": "python3",
+      "args": ["/Users/admin/Developer/multi-agent-systems/develop/openhands-bmad-agt/_bmad/mcp/mcp_notes_server.py"],
+      "description": "Integracja z aplikacją Notes w macOS",
+      "enabled": true,
+      "notes": "Używa AppleScript do komunikacji z Notes.app"
+    }
+  },
+  "security": {
+    "require_write_confirmation": true,
+    "allowed_extensions": [".md", ".txt", ".json", ".yaml", ".yml", ".toml", ".py", ".js", ".ts"],
+    "blocked_paths": ["~/.ssh", "~/.aws", "~/.config", "/etc", "~/.pki"]
+  },
+  "logging": {
+    "level": "info",
+    "log_file": "_bmad/mcp/mcp.log"
+  }
+}
